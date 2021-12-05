@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">weather</string>
+    <string name="start_experience">开始体验</string>
+
+    <string name="news_tab_title">新闻</string>
+    <string name="video_tab_title">视频</string>
+    <string name="pic_tab_title">美图</string>
+    <string name="weather_tab_title">天气</string>
+</resources>
