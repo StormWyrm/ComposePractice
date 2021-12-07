@@ -11,10 +11,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.google.accompanist.insets.LocalWindowInsets
 
 @Composable
 fun TitleBar(
@@ -22,8 +24,10 @@ fun TitleBar(
     showBack: Boolean = false,
     backClick: (() -> Unit)? = null
 ) {
-
-    TopAppBar(contentPadding = PaddingValues.Absolute()) {
+    val topPadding = LocalDensity.current.run {
+        LocalWindowInsets.current.statusBars.top.toDp()
+    }
+    TopAppBar(contentPadding = PaddingValues.Absolute(top = topPadding)) {
         if (showBack) {
             Box(
                 contentAlignment = Alignment.CenterStart,

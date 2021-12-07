@@ -32,6 +32,8 @@ import com.github.stormwyrm.weather.bean.TopStoryModel
 import com.github.stormwyrm.weather.ui.view.LoadingPage
 import com.github.stormwyrm.weather.ui.view.TitleBar
 import com.github.stormwyrm.weather.viewmodel.NewsViewModel
+import com.google.accompanist.insets.statusBarsHeight
+import com.google.accompanist.insets.statusBarsPadding
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.HorizontalPagerIndicator
@@ -48,8 +50,8 @@ fun NewsPage(viewMode: NewsViewModel = viewModel()) {
         state = state!!,
         loadInit = {
             viewMode.getNewsLists()
-        })
-    {
+        }
+    ) {
         Column(Modifier.fillMaxSize()) {
             TitleBar(stringResource(id = R.string.information_title))
             LazyColumn {
@@ -95,9 +97,9 @@ fun NewsBanner(topStories: List<TopStoryModel>) {
                     crossfade(true)
                 }),
                 contentDescription = null,
-                contentScale = ContentScale.FillBounds,
+                contentScale = ContentScale.Crop,
                 modifier = Modifier
-                    .fillMaxWidth()
+                    .fillMaxSize()
                     .clickable {
 
                     }
@@ -136,7 +138,8 @@ private fun NewsItem(model: StoryModel) {
             contentDescription = null,
             modifier = Modifier
                 .size(120.dp, 80.dp)
-                .clip(RoundedCornerShape(2.dp))
+                .clip(RoundedCornerShape(2.dp)),
+            contentScale = ContentScale.Crop
         )
 
         Column(

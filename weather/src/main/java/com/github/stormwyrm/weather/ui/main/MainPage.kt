@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
+import coil.annotation.ExperimentalCoilApi
 import com.github.stormwyrm.weather.R
 import com.github.stormwyrm.weather.ui.movie.MoviePage
 import com.github.stormwyrm.weather.ui.news.NewsPage
@@ -25,10 +26,10 @@ import com.google.accompanist.pager.rememberPagerState
 import kotlinx.coroutines.launch
 
 
+@ExperimentalCoilApi
 @ExperimentalPagerApi
 @Composable
 fun MainPage() {
-
     Column {
         val pagerState = rememberPagerState(
             pageCount = 4,

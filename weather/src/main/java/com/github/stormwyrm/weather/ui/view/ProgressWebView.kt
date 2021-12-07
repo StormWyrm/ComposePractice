@@ -3,6 +3,7 @@ package com.github.stormwyrm.weather.ui.view
 import android.content.Context
 import android.util.AttributeSet
 import android.view.ViewGroup
+import android.view.ViewGroup.LayoutParams
 import android.webkit.WebView
 import android.widget.ProgressBar
 import androidx.core.content.ContextCompat
@@ -28,7 +29,7 @@ class ProgressWebView @JvmOverloads constructor(
 
     inner class WebChromeClient : android.webkit.WebChromeClient() {
         override fun onProgressChanged(view: WebView, newProgress: Int) {
-            if (newProgress == 100) {
+            if (newProgress >= 100) {
                 mProgressBar.isVisible = false
             } else {
                 if (mProgressBar.visibility == GONE) mProgressBar.isVisible = true
