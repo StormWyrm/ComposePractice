@@ -33,8 +33,6 @@ import com.github.stormwyrm.weather.bean.TopStoryModel
 import com.github.stormwyrm.weather.ui.view.LoadingPage
 import com.github.stormwyrm.weather.ui.view.TitleBar
 import com.github.stormwyrm.weather.viewmodel.NewsViewModel
-import com.google.accompanist.insets.statusBarsHeight
-import com.google.accompanist.insets.statusBarsPadding
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.HorizontalPagerIndicator
@@ -47,14 +45,14 @@ fun NewsPage(viewMode: NewsViewModel = viewModel()) {
     val newsModel by viewMode.newsLiveData.observeAsState(NewsModelModel())
     val state by viewMode.stateLiveData.observeAsState()
 
-    LoadingPage(
-        state = state!!,
-        loadInit = {
-            viewMode.getNewsLists()
-        }
-    ) {
-        Column(Modifier.fillMaxSize()) {
-            TitleBar(stringResource(id = R.string.information_title))
+    Column(Modifier.fillMaxSize()) {
+        TitleBar(stringResource(id = R.string.information_title))
+        LoadingPage(
+            state = state!!,
+            loadInit = {
+                viewMode.getNewsLists()
+            }
+        ) {
             LazyColumn {
                 item {
                     NewsBanner(topStories = newsModel.top_stories)
@@ -71,6 +69,7 @@ fun NewsPage(viewMode: NewsViewModel = viewModel()) {
                     }
                 }
             }
+
         }
     }
 
@@ -101,7 +100,11 @@ fun NewsBanner(topStories: List<TopStoryModel>) {
                 modifier = Modifier
                     .fillMaxSize()
                     .clickable {
-                        NewsDetailActivity.start( context = context, title = topStories[page].title, url = topStories[page].url)
+                        NewsDetailActivity.start(
+                            context = context,
+                            title = topStories[page].title,
+                            url = topStories[page].url
+                        )
                     }
             )
         }
@@ -127,7 +130,7 @@ private fun NewsItem(model: StoryModel) {
         modifier = Modifier
             .fillMaxWidth()
             .clickable {
-                NewsDetailActivity.start(context = context,title = model.title, url = model.url)
+                NewsDetailActivity.start(context = context, title = model.title, url = model.url)
             }
             .padding(10.dp)
     ) {

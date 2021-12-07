@@ -1,7 +1,8 @@
 package com.github.stormwyrm.weather.api
 
-import com.github.stormwyrm.weather.bean.NewsModelModel
+import com.github.stormwyrm.weather.bean.*
 import retrofit2.http.GET
+import retrofit2.http.Url
 
 interface Api {
     companion object {
@@ -14,6 +15,16 @@ interface Api {
             "http://api.k780.com/?app=weather.future&weaId=169&&appkey=10003&sign=b59bc3ef6191eb9f747dd4e83c99f2a4&format=json"
     }
 
+
     @GET(NEWS_URL)
     suspend fun getNews(): NewsModelModel
+
+    @GET
+    suspend fun getMovies(@Url url: String = MOVIE_URL): MovieModel
+
+    @GET
+    suspend fun getPics(@Url url: String = PIC_URL): PageModel<List<PictureModel>>
+
+    @GET
+    suspend fun getWeathers(@Url url: String = WEATHER_URL): WeatherResponse
 }
