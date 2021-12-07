@@ -25,6 +25,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
+import com.github.stormwyrm.weather.NewsDetailActivity
 import com.github.stormwyrm.weather.R
 import com.github.stormwyrm.weather.bean.NewsModelModel
 import com.github.stormwyrm.weather.bean.StoryModel
@@ -78,7 +79,6 @@ fun NewsPage(viewMode: NewsViewModel = viewModel()) {
 @ExperimentalPagerApi
 @Composable
 fun NewsBanner(topStories: List<TopStoryModel>) {
-
     val context = LocalContext.current
 
     Box(modifier = Modifier.height(200.dp)) {
@@ -101,7 +101,7 @@ fun NewsBanner(topStories: List<TopStoryModel>) {
                 modifier = Modifier
                     .fillMaxSize()
                     .clickable {
-
+                        NewsDetailActivity.start( context = context, title = topStories[page].title, url = topStories[page].url)
                     }
             )
         }
@@ -122,11 +122,12 @@ fun NewsBanner(topStories: List<TopStoryModel>) {
 @Composable
 private fun NewsItem(model: StoryModel) {
     val context = LocalContext.current
+
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .clickable {
-
+                NewsDetailActivity.start(context = context,title = model.title, url = model.url)
             }
             .padding(10.dp)
     ) {
