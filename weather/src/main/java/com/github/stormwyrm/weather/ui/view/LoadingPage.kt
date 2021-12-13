@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.github.stormwyrm.weather.R
 import com.github.stormwyrm.weather.common.State
@@ -29,6 +30,7 @@ fun LoadingPage(
             state.isError() -> {
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center,
                     modifier = Modifier
                         .padding(20.dp)
                         .clickable {
@@ -36,7 +38,10 @@ fun LoadingPage(
                         }
                 ) {
                     Image(painterResource(R.drawable.ic_no_network), null, Modifier.size(80.dp))
-                    Text(text = "${(state as State.Error).msg.toString()}")
+                    Text(
+                        text = "${(state as State.Error).msg.toString()}",
+                        textAlign = TextAlign.Center
+                    )
                 }
             }
             else -> {

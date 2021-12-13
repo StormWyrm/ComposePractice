@@ -1,6 +1,7 @@
 package com.github.stormwyrm.weather.ui.movie
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -15,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -25,6 +27,7 @@ import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
 import com.blankj.utilcode.util.TimeUtils
 import com.github.stormwyrm.weather.R
+import com.github.stormwyrm.weather.VideoDetailActivity
 import com.github.stormwyrm.weather.bean.MovieItem
 import com.github.stormwyrm.weather.bean.MovieItemModel
 import com.github.stormwyrm.weather.ui.view.LoadingPage
@@ -36,7 +39,7 @@ import com.github.stormwyrm.weather.viewmodel.MovieViewModel
 fun MoviePage(movieViewModel: MovieViewModel = viewModel()) {
     val videoModel by movieViewModel.moviesLiveData.observeAsState()
     val state by movieViewModel.stateLiveData.observeAsState()
-
+    val context = LocalContext.current
     Column(modifier = Modifier.fillMaxSize()) {
         TitleBar(text = stringResource(id = R.string.recommend_movie_title))
         LoadingPage(
@@ -45,7 +48,9 @@ fun MoviePage(movieViewModel: MovieViewModel = viewModel()) {
         ) {
             LazyColumn {
                 items(videoModel?.chunked(2) ?: mutableListOf()) { item ->
-                    MovieRow(movieItems = item)
+                    MovieRow(movieItems = item, onItemClick = {
+                        VideoDetailActivity.start(context = context, it.playUrl, it.title)
+                    })
                 }
             }
         }
@@ -54,7 +59,7 @@ fun MoviePage(movieViewModel: MovieViewModel = viewModel()) {
 
 @ExperimentalCoilApi
 @Composable
-fun MovieRow(movieItems: List<MovieItemModel>) {
+fun MovieRow(movieItems: List<MovieItemModel>, onItemClick: ((MovieItem) -> Unit)? = null) {
     if (movieItems.isEmpty())
         return
     val first = movieItems.first().data
@@ -64,19 +69,26 @@ fun MovieRow(movieItems: List<MovieItemModel>) {
     }
     Row {
         if (second != null) {
-            MovieItem(movieItem = first, modifier = Modifier.weight(1f))
-            MovieItem(movieItem = second, modifier = Modifier.weight(1f))
+            MovieItem(movieItem = first, modifier = Modifier.weight(1f), onItemClick)
+            MovieItem(movieItem = second, modifier = Modifier.weight(1f), onItemClick)
         } else {
-            MovieItem(movieItem = first, modifier = Modifier.fillMaxWidth(0.5f))
+            MovieItem(movieItem = first, modifier = Modifier.fillMaxWidth(0.5f), onItemClick)
         }
     }
 }
 
 @ExperimentalCoilApi
 @Composable
-fun MovieItem(movieItem: MovieItem, modifier: Modifier = Modifier) {
+fun MovieItem(
+    movieItem: MovieItem,
+    modifier: Modifier = Modifier,
+    onItemClick: ((MovieItem) -> Unit)? = null
+) {
     Card(
         modifier
+            .clickable {
+                onItemClick?.invoke(movieItem)
+            }
             .padding(5.dp)
     ) {
         Column {
