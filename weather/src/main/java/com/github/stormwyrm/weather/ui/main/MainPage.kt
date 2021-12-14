@@ -1,5 +1,6 @@
 package com.github.stormwyrm.weather.ui.main
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -26,6 +27,7 @@ import com.google.accompanist.pager.rememberPagerState
 import kotlinx.coroutines.launch
 
 
+@ExperimentalFoundationApi
 @ExperimentalCoilApi
 @ExperimentalPagerApi
 @Composable
