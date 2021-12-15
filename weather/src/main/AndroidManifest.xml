@@ -30,6 +30,8 @@
             android:name=".VideoDetailActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait" />
+
+        <activity android:name=".PictureDetailActivity" />
     </application>
 
 </manifest>

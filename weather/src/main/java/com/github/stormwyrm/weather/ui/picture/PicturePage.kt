@@ -13,12 +13,13 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.rememberImagePainter
-import coil.transform.CircleCropTransformation
 import coil.transform.RoundedCornersTransformation
+import com.github.stormwyrm.weather.PictureDetailActivity
 import com.github.stormwyrm.weather.R
 import com.github.stormwyrm.weather.ui.view.LoadingPage
 import com.github.stormwyrm.weather.ui.view.TitleBar
@@ -29,6 +30,7 @@ import com.github.stormwyrm.weather.viewmodel.PictureViewModel
 fun PicturePage(pictureViewModel: PictureViewModel = viewModel()) {
     val state by pictureViewModel.stateLiveData.observeAsState()
     val pictureList by pictureViewModel.picLiveData.observeAsState(listOf())
+    val context = LocalContext.current
 
     LoadingPage(
         state = state!!,
@@ -60,7 +62,7 @@ fun PicturePage(pictureViewModel: PictureViewModel = viewModel()) {
                             .width(120.dp)
                             .height(120.dp)
                             .clickable {
-
+                                PictureDetailActivity.start(context, item.url800)
                             }
                     )
                 }
