@@ -34,8 +34,8 @@ import kotlinx.coroutines.launch
 fun MainPage() {
     Column {
         val pagerState = rememberPagerState(
-            pageCount = 4,
-            initialOffscreenLimit = 4
+            pageCount = 3,
+            initialOffscreenLimit = 3
         )
 
         HorizontalPager(
@@ -46,7 +46,6 @@ fun MainPage() {
                 0 -> NewsPage()
                 1 -> MoviePage()
                 2 -> PicturePage()
-                3 -> WeatherPage()
             }
         }
 
@@ -64,7 +63,6 @@ private fun BottomNavigationComponent(pagerState: PagerState) {
         context.resources.getString(R.string.news_tab_title),
         context.resources.getString(R.string.video_tab_title),
         context.resources.getString(R.string.pic_tab_title),
-        context.resources.getString(R.string.weather_tab_title)
     )
 
     val scope = rememberCoroutineScope()
