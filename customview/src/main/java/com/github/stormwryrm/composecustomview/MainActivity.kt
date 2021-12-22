@@ -10,7 +10,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.github.stormwryrm.composecustomview.ui.theme.ComposeDemoTheme
-import com.github.stormwryrm.composecustomview.ui.view.MyLineView
+import com.github.stormwryrm.composecustomview.ui.view.LoginPage
 
 @ExperimentalFoundationApi
 class MainActivity : ComponentActivity() {
@@ -19,9 +19,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             ComposeDemoTheme {
                 // A surface container using the 'background' color from the theme
-                Surface(color = MaterialTheme.colors.background) {
-                   MyLineView()
-                }
+                LoginPage()
             }
         }
     }
