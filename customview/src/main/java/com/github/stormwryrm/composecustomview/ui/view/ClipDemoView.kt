@@ -2,10 +2,14 @@ package com.github.stormwryrm.composecustomview.ui.view
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Icon
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.ui.Alignment
@@ -126,60 +130,63 @@ val SemicircleCustomImageShapes: Shape = object : Shape {
 @Preview
 @Composable
 fun StudyLayoutViews() {
-    Box(
-        modifier = Modifier
-            .size(200.dp, height = 100.dp)
-            .clip(BoxClipShape)
-            .background(Color(206, 236, 250))
-    ) {
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            Image(
-                painter = painterResource(id = R.drawable.images),
-                contentDescription = "w",
-                contentScale = ContentScale.FillBounds,
-                modifier = Modifier
-                    .height(50.dp)
-                    .width(50.dp)
-                    .background(Color.White, shape = CircleShape)
-                    .padding(3.dp)
-                    .clip(
-                        CircleShape
-                    )
-                    .shadow(elevation = 150.dp, clip = true)
-            )
-            Column(modifier = Modifier.padding(start = 5.dp)) {
-                Text(
-                    "Container",
-                    fontSize = 16.sp,
-                    color = Color.Black,
-                )
-                Text(
-                    "容器组件",
-                    modifier = Modifier.padding(top = 3.dp, bottom = 3.dp),
-                    fontSize = 12.sp,
-                    color = Color.Gray,
-                )
-                Text(
-                    "123万阅读量",
-                    fontSize = 8.sp,
-                    color = Color.White,
-                )
-            }
-            Box(
-                modifier = Modifier
-                    .height(60.dp)
-                    .padding(start = 30.dp),
-                contentAlignment = Alignment.BottomCenter
-            ) {
+    Box(modifier = Modifier.background(Color(135, 204, 242), BoxBorderClipShape)) {
+        Box(
+            modifier = Modifier
+                .size(200.dp, height = 100.dp)
+                .clip(BoxClipShape)
+                .border(1.dp, Color(135, 204, 242), BoxClipShape)
+                .background(Color(215, 240, 252))
+        ) {
+            Row(modifier = Modifier.align(Alignment.Center)) {
                 Image(
-                    painter = painterResource(id = R.drawable.images),                    contentDescription = "w",
-                    contentScale = ContentScale.FillBounds,
+                    painter = painterResource(id = R.drawable.images),
+                    contentDescription = "w",
+                    contentScale = ContentScale.Crop,
                     modifier = Modifier
-                        .height(20.dp)
-                        .width(20.dp)
+                        .height(50.dp)
+                        .width(50.dp)
+                        .background(Color.White, shape = CircleShape)
+                        .padding(3.dp)
+                        .clip(
+                            CircleShape
+                        )
                         .shadow(elevation = 150.dp, clip = true)
-
                 )
+                Column(modifier = Modifier.padding(start = 8.dp)) {
+                    Text(
+                        "Container",
+                        fontSize = 16.sp,
+                        color = Color.Black,
+                    )
+                    Text(
+                        "容器组件",
+                        modifier = Modifier.padding(top = 3.dp, bottom = 3.dp),
+                        fontSize = 12.sp,
+                        color = Color.Gray,
+                    )
+                    Text(
+                        "123万阅读量",
+                        fontSize = 8.sp,
+                        color = Color.White,
+                    )
+                }
+                Box(
+                    modifier = Modifier
+                        .height(60.dp)
+                        .padding(start = 30.dp),
+                    contentAlignment = Alignment.BottomCenter
+                ) {
+                    Icon(
+                        imageVector = Icons.Filled.Delete,
+                        contentDescription = "w",
+                        modifier = Modifier
+                            .height(20.dp)
+                            .width(20.dp)
+                            .shadow(elevation = 150.dp, clip = true)
+
+                    )
+                }
             }
         }
     }
@@ -200,17 +207,46 @@ val BoxClipShape: Shape = object : Shape {
             lineTo(0f, size.height - radius)
             lineTo(radius, size.height)
             lineTo((size.width * 0.25).toFloat(), size.height)
-            relativeLineTo(radius / 2, -radius / 2)
+            relativeLineTo(radius / 4, -radius / 4)
             relativeLineTo(size.width / 2 - radius, 0f)
-            relativeLineTo(radius / 2, radius / 2)
+            relativeLineTo(radius / 4, radius / 4)
             lineTo(size.width - radius, size.height)
             relativeLineTo(radius, -radius)
             relativeLineTo(0f, -size.height + 2 * radius)
             relativeLineTo(-radius, -radius)
             relativeLineTo(-(size.width * 0.25 - radius).toFloat(), 0f)
-            relativeLineTo(-radius / 2, radius / 2)
+            relativeLineTo(-radius / 4, radius / 4)
             relativeLineTo(-size.width / 2 + radius, 0f)
-            relativeLineTo(-radius / 2, -radius / 2)
+            relativeLineTo(-radius / 4, -radius / 4)
+            close()
+        }
+        return Outline.Generic(path)
+    }
+
+}
+
+@Stable
+val BoxBorderClipShape: Shape = object : Shape {
+    val radius = 30f
+    override fun createOutline(
+        size: Size,
+        layoutDirection: LayoutDirection,
+        density: Density
+    ): Outline {
+
+        val path = Path().apply {
+            moveTo(radius, 0f)
+            lineTo(0f, radius)
+            lineTo(0f, size.height - radius)
+            lineTo(radius, size.height)
+            lineTo((size.width * 0.25).toFloat(), size.height)
+            relativeLineTo(radius / 4, -radius / 4)
+            relativeLineTo(size.width / 2 - radius, 0f)
+            relativeLineTo(radius / 4, radius / 4)
+            lineTo(size.width - radius, size.height)
+            relativeLineTo(radius, -radius)
+            relativeLineTo(0f, -size.height + 2 * radius)
+            relativeLineTo(-radius, -radius)
             close()
         }
         return Outline.Generic(path)
