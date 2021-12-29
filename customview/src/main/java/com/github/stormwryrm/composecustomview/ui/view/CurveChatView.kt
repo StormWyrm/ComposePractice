@@ -116,19 +116,11 @@ private fun drawCaves(
     paint: Paint,
     lineSpacing: Float
 ) {
-    val xMoveDistance = 30
+    val xMoveDistance = 40
     val yMoveDistance = 40
 
-    paint.apply {
-        style = PaintingStyle.Fill
-        shader = LinearGradientShader(
-            Offset(0f, 1500f), Offset(0f, 0f),
-            mutableListOf(
-                Color(240, 148, 127, 255),
-                Color(251, 244, 240),
-            )
-        )
-    }
+    paint.color =  Color(243, 134, 110, 255)
+    paint.strokeWidth = 3f
 
     val datas = mutableListOf(
         Offset(0f, 0f),
@@ -141,11 +133,8 @@ private fun drawCaves(
     ).map {
         Offset(it.x * lineSpacing, it.y * lineSpacing)
     }
-    datas.forEach {
-        canvas.drawCircle(it, 5f, paint)
-    }
 
-
+    paint.style =  PaintingStyle.Stroke
     val path = Path()
     path.moveTo(datas[0].x, datas[0].y)
     for (index in 0 until datas.size - 1) {
@@ -181,6 +170,23 @@ private fun drawCaves(
             }
         }
     }
+
+    canvas.drawPath(path, paint)
+    paint.apply {
+        paint.style = PaintingStyle.Fill
+        shader = LinearGradientShader(
+            Offset(0f, 1500f), Offset(0f, 0f),
+            mutableListOf(
+                Color(243, 134, 110, 255),
+                Color(240, 224, 216, 255),
+            )
+        )
+    }
     path.close()
     canvas.drawPath(path, paint)
+
+    datas.forEach {
+        paint.style =  PaintingStyle.Fill
+        canvas.drawCircle(it, 7f, paint)
+    }
 }

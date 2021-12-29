@@ -31,7 +31,7 @@ import com.github.stormwryrm.composecustomview.utils.BitmapBlur
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 fun LoginPage() {
     val animatedDegree = remember { Animatable(0f) }
